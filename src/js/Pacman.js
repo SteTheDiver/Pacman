@@ -1,11 +1,12 @@
 "use strict";
 
 class Pacman {
-  constructor(xpos, ypos) {
+  constructor(xpos, ypos, stage) {
     this.xpos = xpos;
     this.ypos = ypos;
     this.mouth = 0;
     this.facing = 0;
+    this.stage = stage
   }
 
   render() {
@@ -48,34 +49,54 @@ class Pacman {
 
   moveRight() {
     if (this.xpos < WIDTH_STAGE - 1) {
-      this.xpos += 1;
-      this.element.style.left = this.xpos * TILE_SIZE + "px";
-      this.facing = 0;
-      this.update();
+      if(
+        this.stage.collisionDetection(this.xpos+1,this.ypos) === null
+      )
+      {
+        this.xpos += 1;
+        this.element.style.left = this.xpos * TILE_SIZE + "px";
+        this.facing = 0;
+        this.update();
+      }
     }
   }
   moveLeft() {
     if (this.xpos > 0 ) {
+      if(
+        this.stage.collisionDetection(this.xpos-1,this.ypos) === null
+      )
+      {
       this.xpos -= 1;
       this.element.style.left = this.xpos * TILE_SIZE + "px";
       this.facing = 33;
       this.update();
+      }
     }
   }
   moveUp() {
     if (this.ypos > 0) {
+      if(
+        this.stage.collisionDetection(this.xpos,this.ypos-1) === null
+      )
+      {
       this.ypos -= 1;
       this.element.style.top = this.ypos * TILE_SIZE + "px";
       this.facing = 100;
       this.update();
+      }
     }
   }
   moveDown() {
     if (this.ypos < HEIGHT_STAGE - 1) {
+      if(
+        this.stage.collisionDetection(this.xpos,this.ypos+1) === null
+      )
+      {
       this.ypos += 1;
       this.element.style.top = this.ypos * TILE_SIZE + "px";
       this.facing = 66;
       this.update();
+      }
     }
   }
 }

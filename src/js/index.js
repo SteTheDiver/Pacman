@@ -4,24 +4,31 @@ const app = document.querySelector('#app');
 const stage1 = new Stage(WIDTH_STAGE, HEIGHT_STAGE);
 stage1.mount(app);
 
-const pacMan1 = new Pacman(1, 3, stage1)
+const pacMan1 = new Pacman(0, 0, stage1)
 const stage = document.querySelector('.stage');
 pacMan1.mount(stage);
 
-const ent1 = new Entity(3,4,'wall')
-ent1.mount(stage)
-stage1.addEntity(ent1)
 
-const ent2 = new Entity(3,3,'wall')
-ent2.mount(stage)
-stage1.addEntity(ent2)
+fetch(`http://bootcamp.podlomar.org/api/pacman?width=12&height=8`)
+  .then((resp) => resp.json())
+  .then((json) => {
 
-const ent3 = new Entity(1,2,'apple')
-ent3.mount(stage)
-stage1.addEntity(ent3)
-
-const ent4 = new Entity(2,3,'bomb')
-ent4.mount(stage)
-stage1.addEntity(ent4)
+    console.log(json.apples.length)
+    for (let i=0; i<json.apples.length; i++) {
+    const entity = new Entity(json.apples[i].x, json.apples[i].y, 'apple')
+    entity.mount(stage)
+    stage1.addEntity(entity)
+    }
+    for (let i=0; i<json.walls.length; i++) {
+      const entity = new Entity(json.walls[i].x, json.walls[i].y, 'wall')
+      entity.mount(stage)
+      stage1.addEntity(entity)
+      }
+    for (let i=0; i<json.bombs.length; i++) {
+      const entity = new Entity(json.bombs[i].x, json.bombs[i].y, 'bomb')
+      entity.mount(stage)
+      stage1.addEntity(entity)
+      }  
+  });
 
 

@@ -2,7 +2,7 @@
 
 const TILE_SIZE = 85
 const WIDTH_STAGE = 12
-const HEIGHT_STAGE = 6 
+const HEIGHT_STAGE = 8 
 
 class Stage {
     constructor(xTiles, yTiles) {
@@ -33,6 +33,14 @@ class Stage {
                     this.removeEntity(this.entities[i],i)
                     pacMan1.score += 1;
                 }
+                if (this.entities[i].type === "bomb" ) {
+                    this.removeEntity(this.entities[i],i)
+                    const entity = new Entity(x, y, 'tomb')
+                    entity.mount(stage)
+                    stage1.addEntity(entity)
+                    this.removePacman(pacMan1)
+
+                }
                 return this.entities[i].type;
             } 
         }
@@ -47,7 +55,11 @@ class Stage {
         entity.unmount();
         this.entities.splice(index, 1)
         console.log('ok')
+    }
 
+    removePacman(pacman) {
+        pacman.unmount();
+        console.log('ok')
     }
     
 

@@ -38,6 +38,10 @@ class Pacman {
     parent.appendChild(this.element);
   }
 
+  unmount() {
+    this.element.remove();
+}
+
   update() {
     //this.element.classList.toggle('pacboy-active-light--mouth')
     this.element.style.backgroundPositionY = this.facing + "%";

@@ -34,8 +34,8 @@ class Stage {
           pacMan1.score += 1;
         }
         if (this.entities[i].type === "bomb") {
-          if (Math.random() < 0.5) {
             this.removeEntity(this.entities[i], i);
+            if (Math.random() < 0.5) {
             const entity = new Entity(x, y, "tomb");
             entity.mount(stage);
             stage1.addEntity(entity);

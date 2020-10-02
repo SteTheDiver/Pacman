@@ -17,4 +17,8 @@ class Entity {
         this.element = this.render()
         parent.appendChild(this.element)
     }
+
+    unmount() {
+        this.element.remove();
+    }
 }

@@ -26,17 +26,28 @@ class Stage {
     }
 
     collisionDetection(x,y) {
-        console.log(x+','+y)
-        for (let i=0 ; i< this.entities.length; i++) {
+        for (let i=0 ; i < this.entities.length; i++) {
             if (this.entities[i].x === x && this.entities[i].y === y) {
-                return this.entities[i]
-            }
+                console.log(this.entities[i].type)
+                if (this.entities[i].type === "apple" ) {
+                    this.removeEntity(this.entities[i],i)
+                    pacMan1.score += 1;
+                }
+                return this.entities[i].type;
+            } 
         }
         return null
     }
 
     addEntity(entity) {
         this.entities.push(entity)
+    }
+
+    removeEntity(entity,index) {
+        entity.unmount();
+        this.entities.splice(index, 1)
+        console.log('ok')
+
     }
     
 

@@ -7,11 +7,13 @@ class Pacman {
     this.mouth = 0;
     this.facing = 0;
     this.stage = stage
+    this.score = 0
   }
 
   render() {
     const elm = document.createElement("div");
     elm.className = "entity entity--pac pacboy-active-light";
+    elm.textContent = "score = " + this.score
     elm.style.left = this.xpos * TILE_SIZE + "px";
     elm.style.top = this.ypos * TILE_SIZE + "PX";
     document.addEventListener("keydown", (event) => {
@@ -45,12 +47,14 @@ class Pacman {
       this.mouth = 0;
     }
     this.element.style.backgroundPositionX = this.mouth + "%";
+
+    this.element.textContent = "score = " + this.score
   }
 
   moveRight() {
     if (this.xpos < WIDTH_STAGE - 1) {
       if(
-        this.stage.collisionDetection(this.xpos+1,this.ypos) === null
+        this.stage.collisionDetection(this.xpos+1,this.ypos) !== "wall"
       )
       {
         this.xpos += 1;
@@ -63,7 +67,7 @@ class Pacman {
   moveLeft() {
     if (this.xpos > 0 ) {
       if(
-        this.stage.collisionDetection(this.xpos-1,this.ypos) === null
+        this.stage.collisionDetection(this.xpos-1,this.ypos) !== "wall"
       )
       {
       this.xpos -= 1;
@@ -76,7 +80,7 @@ class Pacman {
   moveUp() {
     if (this.ypos > 0) {
       if(
-        this.stage.collisionDetection(this.xpos,this.ypos-1) === null
+        this.stage.collisionDetection(this.xpos,this.ypos-1) !== "wall"
       )
       {
       this.ypos -= 1;
@@ -89,7 +93,7 @@ class Pacman {
   moveDown() {
     if (this.ypos < HEIGHT_STAGE - 1) {
       if(
-        this.stage.collisionDetection(this.xpos,this.ypos+1) === null
+        this.stage.collisionDetection(this.xpos,this.ypos+1) !== "wall"
       )
       {
       this.ypos += 1;
